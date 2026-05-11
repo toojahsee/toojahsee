@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #ffffff;
+    --foreground: #202122;
+    --wiki-cyan: #00ffff;
+    --wiki-green: #00ff80;
+    --wiki-bg-dark: #00050a;
+  }
+  .dark {
+    --background: #00050a;
+    --foreground: #e0f2f1;
+  }
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Cyber Background Effects */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+              linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  background-size: 100% 4px, 3px 100%;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.15;
+}
+
+.dark body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle at 50% 50%, rgba(0, 255, 255, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Wikipedia specific base styles - Overhauled */
+.wiki-article h1, .wiki-article h2, .wiki-article h3, .wiki-article h4 {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  border-bottom: 2px solid var(--wiki-cyan);
+  padding-bottom: 0.25em;
+  margin-bottom: 0.8em;
+  margin-top: 2em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--wiki-cyan);
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.dark .wiki-article h1 { font-size: 2.5rem; }
+
+.wiki-article p {
+  line-height: 1.8;
+  margin-bottom: 1.2em;
+  color: #b2dfdb;
+}
+
+.wiki-link {
+  color: var(--wiki-cyan);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+}
+.wiki-link:hover {
+  text-shadow: 0 0 8px var(--wiki-cyan);
+  text-decoration: none;
+}
+.wiki-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--wiki-cyan);
+  transition: width 0.3s ease;
+}
+.wiki-link:hover::after {
+  width: 100%;
+}
+
+/* Tactical Panel Styling */
+.wiki-panel {
+  background: rgba(0, 20, 40, 0.5);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.05);
+}
+
+/* Scrollbar styling - Tactical */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #00050a;
+}
+::-webkit-scrollbar-thumb {
+  background: #004d40;
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--wiki-cyan);
+}
+
+@keyframes scan {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(100%); }
+}
+
+.scanning-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--wiki-cyan);
+  opacity: 0.5;
+  box-shadow: 0 0 15px var(--wiki-cyan);
+  animation: scan 4s linear infinite;
+  pointer-events: none;
+}
